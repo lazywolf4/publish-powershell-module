@@ -15,7 +15,7 @@ $Modules | ForEach-Object {
     if ($env:INPUT_AUTOVERSION -eq "true") {
         $ModuleName = $_
         $ModulePath = $env:INPUT_MODULEFULLPATH
-	    ./autoversion.ps1
+	./autoversion.ps1
     }
 
     Register-PSRepository -Name "BagetNx" -SourceLocation "https://nuget.dev.nexcon-it.de/v3/index.json" -PublishLocation "https://nuget.dev.nexcon-it.de/api/v2/package" -InstallationPolicy "Trusted"
