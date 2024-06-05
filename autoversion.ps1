@@ -4,6 +4,10 @@ $FingerprintPath = "$ModulePath\.version_fingerprint.tmp"
 #Dependencys
 #Step-ModuleVersion is from https://github.com/RamblingCookieMonster/BuildHelpers
 #Module must be imported!
+if (-not(Get-Module -ListAvailable -Name BuildHelpers)) {
+    Install-Module BuildHelpers
+    Import-Module BuildHelpers
+}
 
 #Create Module fingerprint
 #https://powershellexplained.com/2017-10-14-Powershell-module-semantic-version/
