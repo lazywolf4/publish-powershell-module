@@ -13,6 +13,6 @@ $Modules | ForEach-Object {
     Write-Host "Publishing '$_' to PowerShell Gallery"
 
     Register-PSRepository -Name "BagetNx" -SourceLocation "https://nuget.dev.nexcon-it.de/v3/index.json" -PublishLocation "https://nuget.dev.nexcon-it.de/api/v2/package" -InstallationPolicy "Trusted"
-    Publish-Module -Path $_ -NuGetApiKey $env:INPUT_NUGETAPIKEY -Repository "BagetNx"
+    Publish-Module -Path $_ -NuGetApiKey $env:INPUT_NUGETAPIKEY -Repository $env:INPUT_NUGETREPOSITORY
     Write-Host "'$_' published to PowerShell Gallery"
 }
