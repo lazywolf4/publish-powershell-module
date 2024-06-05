@@ -11,6 +11,9 @@ inputs:
   modulePath:
     description: The filesystem path to the module to publish.  If not provided, all directories that contains a .psd1 are published.
     required: false
+  moduleFullpath:
+    description: Fullpath for module (required for AutoVersion)
+    required: false
   AutoVersion:
     type: choice
     description: Automatically versioning of Powershell Modules (require new commit after Workflow, to save Fingerprint of Module)
