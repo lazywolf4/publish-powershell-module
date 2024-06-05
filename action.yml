@@ -4,6 +4,10 @@ inputs:
   NuGetApiKey:
     description: The NuGet API Key for PowerShell Gallery, with permission to push this module.
     required: true
+  NugetRepository:
+    description: Nuget Repository for push
+    required: false
+    default: PSGallery
   modulePath:
     description: The filesystem path to the module to publish.  If not provided, all directories that contains a .psd1 are published.
     required: false
@@ -16,3 +20,4 @@ runs:
   args:
     - ${{ inputs.NuGetApiKey }}
     - ${{ inputs.modulePath }}
+    - ${{ inputs.NugetRepository }}
