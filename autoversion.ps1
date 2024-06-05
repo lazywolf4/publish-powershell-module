@@ -4,9 +4,9 @@ $FingerprintPath = "$ModulePath\.version_fingerprint.tmp"
 #Dependencys
 #Step-ModuleVersion is from https://github.com/RamblingCookieMonster/BuildHelpers
 #Module must be imported!
-Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted -Force
+Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted
 if (-not(Get-Module -ListAvailable -Name BuildHelpers)) {
-    Install-Module BuildHelpers
+    Install-Module BuildHelpers -Force
     Import-Module BuildHelpers
 }
 
