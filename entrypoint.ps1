@@ -5,7 +5,7 @@ $changedFilesString = "$env:INPUT_CHANGEDFILES"
 $changedFilesIgnoreString = "$env:INPUT_CHANGEDFILESIGNOREDEXTENSIONS"
 
 Write-Host "$changedFilesString"
-if (-Not ($changedFilesString -eq $null)) {
+if (-Not ($changedFilesString -eq "[]")) {
     #changedFilesIgnore string to array
     $changedFilesIgnoreArray = $changedFilesIgnoreString.Split(',') 
     
