@@ -23,7 +23,10 @@ inputs:
       - false
     required: false
   ChangedFiles:
-    description: Changed files test
+    description: All changed files (by last commit) to process from (needed if you use multiple Modules with this Action) https://github.com/tj-actions/changed-files
+    required: false
+  ChangedFilesIgnoredExtensions:
+    description: File extensions that should be ignored by ChangedFiles
     required: false
 
 outputs:
@@ -36,3 +39,5 @@ runs:
     - ${{ inputs.NuGetApiKey }}
     - ${{ inputs.modulePath }}
     - ${{ inputs.NugetRepository }}
+    - ${{ inputs.ChangedFiles }}
+    - ${{ inputs.ChangedFilesIgnoredExtensions }}
