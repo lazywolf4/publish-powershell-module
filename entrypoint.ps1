@@ -2,4 +2,4 @@
 $ErrorActionPreference = 'Stop'
 
 Write-Host "Daten von Gitea..."
-Write-Host "$env:INPUT_NUGETAPIKEY"
+Write-Host "$env:INPUT_CHANGEDFILES"
