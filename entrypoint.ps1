@@ -16,6 +16,10 @@ $changedFilesArray = @($changedFilesValues)
 #Init empty array for paths that should be processed, after scanning for invalid file extensions
 $modulePathArray = @()
 
+if ($changedFilesArray.Count -eq 0) {
+    exit 0
+}
+
 foreach ($changedFile in $changedFilesArray) {
     #Extract Filename and extension
     $filename = Split-Path -Path $changedFile -Leaf
