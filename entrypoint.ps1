@@ -1,11 +1,8 @@
 #!/usr/bin/env pwsh
 $ErrorActionPreference = 'Stop'
 
-Write-Host "Daten von Gitea..."
-Write-Host "$env:INPUT_CHANGEDFILES"
-
 $changedFilesString = "$env:INPUT_CHANGEDFILES"
-$changedFilesIgnoreString = "$env:INPUT_CHANGEDFILESIGNORE"
+$changedFilesIgnoreString = "$env:INPUT_CHANGEDFILESIGNOREDEXTENSIONS"
 
 #changedFilesIgnore string to array
 $changedFilesIgnoreArray = $changedFilesIgnoreString.Split(',') 
