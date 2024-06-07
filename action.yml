@@ -22,6 +22,10 @@ inputs:
       - true
       - false
     required: false
+  ChangedFiles:
+    description: Changed files test
+    required: false
+
 outputs:
   successfullyPublished: # id of output
     description: Whether or not the publish command was successful
