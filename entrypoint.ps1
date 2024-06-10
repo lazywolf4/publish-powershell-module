@@ -65,5 +65,5 @@ foreach ($currentModulePath in $modulePathArray) {
     }
 
     Publish-Module -Path $ModulePath -NuGetApiKey $env:INPUT_NUGETAPIKEY -Repository $env:INPUT_NUGETREPOSITORY
-    Write-Host "$ModuleName successful published to $env:INPUT_NUGETREPOSITORY""
+    Write-Host "$ModuleName successful published to $env:INPUT_NUGETREPOSITORY"
 }
