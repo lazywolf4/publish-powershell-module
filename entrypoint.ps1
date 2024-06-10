@@ -48,12 +48,12 @@ if (-Not ($changedFilesString -eq "[]")) {
     $modulePathArray = $modulePathArray | select -Unique
 }
 
-Write-Host "add repo"
 #Init custom ps gallery (if needed)
+Write-Verbose "Repo adding: $env:INPUT_NUGETREPOSITORY"
 if (-not ($env:INPUT_NUGETREPOSITORYSOURCEURL -eq $null)) {
     Register-PSRepository -Name "$env:INPUT_NUGETREPOSITORY" -SourceLocation "$env:INPUT_NUGETREPOSITORYSOURCEURL" -PublishLocation "$env:INPUT_NUGETREPOSITORYPUBLISHURL" -InstallationPolicy "Trusted"
 }
-Write-Host "added repo"
+Write-Verbose "Repo added: $env:INPUT_NUGETREPOSITORY"
 
 foreach ($currentModulePath in $modulePathArray) {
     $ModuleName = $currentModulePath.Split("/")[1]
@@ -67,6 +67,6 @@ foreach ($currentModulePath in $modulePathArray) {
     }
 
     #Publish to repo
-    Publish-Module -Path $ModulePath -NuGetApiKey $env:INPUT_NUGETAPIKEY -Repository $env:INPUT_NUGETREPOSITORY
+    Publish-Module -Path $ModulePath -NuGetApiKey $env:INPUT_NUGETAPIKEY -Repository $env:INPUT_NUGETREPOSITORY -Force
     Write-Host "$ModuleName successful published to $env:INPUT_NUGETREPOSITORY"
 }
