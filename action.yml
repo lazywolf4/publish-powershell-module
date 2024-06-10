@@ -23,6 +23,9 @@ inputs:
       - false
     required: false
   #Single modul build
+  moduleName:
+    description: The filesystem path to the module to publish.
+    required: false
   modulePath:
     description: The filesystem path to the module to publish.
     required: false
