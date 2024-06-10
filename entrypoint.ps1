@@ -4,7 +4,7 @@ $ErrorActionPreference = 'Stop'
 $changedFilesString = "$env:INPUT_CHANGEDFILES"
 $changedFilesIgnoreString = "$env:INPUT_CHANGEDFILESIGNOREDEXTENSIONS"
 
-if ((-Not ($changedFilesString -eq "[]")) -and ($env:INPUT_MODULEPATH -eq $null)) {
+if ((-Not ($changedFilesString -eq "[]")) -and ($env:INPUT_MODULEPATH -eq "")) {
     Write-Host "Mode: Multi Module"
     #changedFilesIgnore string to array
     $changedFilesIgnoreArray = $changedFilesIgnoreString.Split(',') 
@@ -47,7 +47,7 @@ if ((-Not ($changedFilesString -eq "[]")) -and ($env:INPUT_MODULEPATH -eq $null)
     
     #Dedup array
     $modulePathArray = $modulePathArray | select -Unique
-} elseif (-Not ($env:INPUT_MODULEPATH -eq $null)) {
+} elseif (-Not ($env:INPUT_MODULEPATH -eq "")) {
     Write-Host "Mode: Single Module"
     $modulePathArray = @("$env:INPUT_MODULEPATH")
 }
@@ -61,7 +61,7 @@ if (-not ($env:INPUT_NUGETREPOSITORYSOURCEURL -eq $null)) {
 Write-Verbose "Repo added: $env:INPUT_NUGETREPOSITORY"
 
 foreach ($currentModulePath in $modulePathArray) {
-    if ($env:INPUT_MODULEPATH -eq $null) {
+    if ($env:INPUT_MODULEPATH -eq "") {
         $ModuleName = $currentModulePath.Split("/")[1]
         $ModulePath = ".\$currentModulePath"
     } else {
