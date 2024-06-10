@@ -4,7 +4,8 @@ $ErrorActionPreference = 'Stop'
 $changedFilesString = "$env:INPUT_CHANGEDFILES"
 $changedFilesIgnoreString = "$env:INPUT_CHANGEDFILESIGNOREDEXTENSIONS"
 
-if (-Not ($changedFilesString -eq "[]")) {
+if ((-Not ($changedFilesString -eq "[]")) -and ($env:modulePath -eq $null)) {
+    Write-Host "Mode: Multi Module"
     #changedFilesIgnore string to array
     $changedFilesIgnoreArray = $changedFilesIgnoreString.Split(',') 
     
@@ -46,7 +47,11 @@ if (-Not ($changedFilesString -eq "[]")) {
     
     #Dedup array
     $modulePathArray = $modulePathArray | select -Unique
+} elseif (-Not ($env:modulePath -eq $null)) {
+    Write-Host "Mode: Single Module"
+    $modulePathArray = @("$env:modulePath")
 }
+
 
 #Init custom ps gallery (if needed)
 Write-Verbose "Repo adding: $env:INPUT_NUGETREPOSITORY"
