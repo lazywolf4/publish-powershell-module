@@ -46,13 +46,24 @@ if (-Not ($changedFilesString -eq "[]")) {
     
     #Dedup array
     $modulePathArray = $modulePathArray | select -Unique
-    
-    Write-Host "Pfade zum verarbeiten:"
-    $modulePathArray
 }
 
-
+#Init custom ps gallery (if needed)
 if (-not ($env:INPUT_NUGETREPOSITORYSOURCEURL -eq $null)) {
     Register-PSRepository -Name "$env:INPUT_NUGETREPOSITORY" -SourceLocation "$env:INPUT_NUGETREPOSITORYSOURCEURL" -PublishLocation "$env:INPUT_NUGETREPOSITORYPUBLISHURL" -InstallationPolicy "Trusted"
 }
 
+
+foreach ($currentModulePath in $modulePathArray) {
+    $ModuleName = $currentModulePath.Split("/")[1]
+    Write-Host "Publishing $ModuleName to $env:INPUT_NUGETREPOSITORY"
+
+    $ModulePath = $currentModulePath
+
+    if ($env:INPUT_AUTOVERSION -eq "true") {
+        & \data\autoversion.ps1
+    }
+
+    Publish-Module -Path $ModulePath -NuGetApiKey $env:INPUT_NUGETAPIKEY -Repository $env:INPUT_NUGETREPOSITORY
+    Write-Host "$ModuleName successful published to $env:INPUT_NUGETREPOSITORY""
+}
