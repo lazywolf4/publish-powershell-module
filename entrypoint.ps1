@@ -60,7 +60,9 @@ foreach ($currentModulePath in $modulePathArray) {
     $ModuleName = $currentModulePath.Split("/")[1]
     Write-Host "Publishing $ModuleName to $env:INPUT_NUGETREPOSITORY"
 
-    $ModulePath = $currentModulePath
+    $ModulePath = ".\$currentModulePath"
+    Write-Host "Module path is: $ModulePath"
+    Write-Host "Module name is: $ModuleName"
 
     if ($env:INPUT_AUTOVERSION -eq "true") {
         & \data\autoversion.ps1
