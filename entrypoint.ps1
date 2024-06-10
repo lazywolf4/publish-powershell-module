@@ -4,7 +4,6 @@ $ErrorActionPreference = 'Stop'
 $changedFilesString = "$env:INPUT_CHANGEDFILES"
 $changedFilesIgnoreString = "$env:INPUT_CHANGEDFILESIGNOREDEXTENSIONS"
 
-Write-Host "$changedFilesString"
 if (-Not ($changedFilesString -eq "[]")) {
     #changedFilesIgnore string to array
     $changedFilesIgnoreArray = $changedFilesIgnoreString.Split(',') 
@@ -53,20 +52,7 @@ if (-Not ($changedFilesString -eq "[]")) {
 }
 
 
-
-#Weiter machen dann hiermit
-$Modules = @($env:INPUT_MODULEPATH)
-
-$Modules | ForEach-Object {
-    Write-Host "Publishing '$_' to PowerShell Gallery"
-
-    if ($env:INPUT_AUTOVERSION -eq "true") {
-        $ModuleName = $_
-        $ModulePath = $env:INPUT_MODULEFULLPATH
-	& \data\autoversion.ps1
-    }
-
-    Register-PSRepository -Name "BagetNx" -SourceLocation "https://nuget.dev.nexcon-it.de/v3/index.json" -PublishLocation "https://nuget.dev.nexcon-it.de/api/v2/package" -InstallationPolicy "Trusted"
-    Publish-Module -Path $_ -NuGetApiKey $env:INPUT_NUGETAPIKEY -Repository $env:INPUT_NUGETREPOSITORY
-    Write-Host "'$_' published to PowerShell Gallery"
+if (-not ($env:INPUT_NUGETREPOSITORYSOURCEURL -eq $null)) {
+    Register-PSRepository -Name "$env:INPUT_NUGETREPOSITORY" -SourceLocation "$env:INPUT_NUGETREPOSITORYSOURCEURL" -PublishLocation "$env:INPUT_NUGETREPOSITORYPUBLISHURL" -InstallationPolicy "Trusted"
 }
+

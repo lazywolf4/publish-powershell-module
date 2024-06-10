@@ -8,12 +8,12 @@ inputs:
     description: Nuget Repository for push
     required: false
     default: PSGallery
-  modulePath:
-    description: The filesystem path to the module to publish.  If not provided, all directories that contains a .psd1 are published.
-    required: false
-  moduleFullpath:
-    description: Fullpath for module (required for AutoVersion)
-    required: false
+  NugetRepositorySourceUrl:
+      description: Nuget repository source url (for selfhosted nuget)
+      required: false
+  NugetRepositoryPublishUrl:
+      description: Nuget repository publish url (for selfhosted nuget)
+      required: false
   AutoVersion:
     type: choice
     description: Automatically versioning of Powershell Modules (require new commit after Workflow, to save Fingerprint of Module)
@@ -22,6 +22,11 @@ inputs:
       - true
       - false
     required: false
+  #Single modul build
+  modulePath:
+    description: The filesystem path to the module to publish.
+    required: false
+  #Multiple modules build (with changed files)
   ChangedFiles:
     description: All changed files (by last commit) to process from (needed if you use multiple Modules with this Action) https://github.com/tj-actions/changed-files
     required: false
@@ -37,7 +42,9 @@ runs:
   image: Dockerfile
   args:
     - ${{ inputs.NuGetApiKey }}
-    - ${{ inputs.modulePath }}
     - ${{ inputs.NugetRepository }}
+    - ${{ inputs.NugetRepositoryUrl }}
+    - ${{ inputs.AutoVersion }}
+    - ${{ inputs.modulePath }}
     - ${{ inputs.ChangedFiles }}
     - ${{ inputs.ChangedFilesIgnoredExtensions }}
