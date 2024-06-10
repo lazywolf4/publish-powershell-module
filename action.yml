@@ -33,10 +33,6 @@ inputs:
   ChangedFilesIgnoredExtensions:
     description: File extensions that should be ignored by ChangedFiles
     required: false
-
-outputs:
-  successfullyPublished: # id of output
-    description: Whether or not the publish command was successful
 runs:
   using: docker
   image: Dockerfile
