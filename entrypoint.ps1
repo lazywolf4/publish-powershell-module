@@ -1,6 +1,5 @@
 #!/usr/bin/env pwsh
 $ErrorActionPreference = 'Stop'
-$VerbosePreference = "Continue"
 
 $changedFilesString = "$env:INPUT_CHANGEDFILES"
 $changedFilesIgnoreString = "$env:INPUT_CHANGEDFILESIGNOREDEXTENSIONS"
@@ -58,16 +57,16 @@ Write-Host "added repo"
 
 foreach ($currentModulePath in $modulePathArray) {
     $ModuleName = $currentModulePath.Split("/")[1]
+    $ModulePath = ".\$currentModulePath"
+
     Write-Host "Publishing $ModuleName to $env:INPUT_NUGETREPOSITORY"
 
-    $ModulePath = ".\$currentModulePath"
-    Write-Host "Module path is: $ModulePath"
-    Write-Host "Module name is: $ModuleName"
-
+    #Autoversioning
     if ($env:INPUT_AUTOVERSION -eq "true") {
         & \data\autoversion.ps1
     }
 
+    #Publish to repo
     Publish-Module -Path $ModulePath -NuGetApiKey $env:INPUT_NUGETAPIKEY -Repository $env:INPUT_NUGETREPOSITORY
     Write-Host "$ModuleName successful published to $env:INPUT_NUGETREPOSITORY"
 }
