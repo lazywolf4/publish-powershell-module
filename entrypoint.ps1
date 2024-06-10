@@ -1,5 +1,6 @@
 #!/usr/bin/env pwsh
 $ErrorActionPreference = 'Stop'
+$VerbosePreference = "Continue"
 
 $changedFilesString = "$env:INPUT_CHANGEDFILES"
 $changedFilesIgnoreString = "$env:INPUT_CHANGEDFILESIGNOREDEXTENSIONS"
@@ -48,11 +49,12 @@ if (-Not ($changedFilesString -eq "[]")) {
     $modulePathArray = $modulePathArray | select -Unique
 }
 
+Write-Host "add repo"
 #Init custom ps gallery (if needed)
 if (-not ($env:INPUT_NUGETREPOSITORYSOURCEURL -eq $null)) {
     Register-PSRepository -Name "$env:INPUT_NUGETREPOSITORY" -SourceLocation "$env:INPUT_NUGETREPOSITORYSOURCEURL" -PublishLocation "$env:INPUT_NUGETREPOSITORYPUBLISHURL" -InstallationPolicy "Trusted"
 }
-
+Write-Host "added repo"
 
 foreach ($currentModulePath in $modulePathArray) {
     $ModuleName = $currentModulePath.Split("/")[1]
